@@ -16,7 +16,8 @@ export const Span = styled.span`
   align-items: center;
   justify-content: center;
   color: #333;
-  font-size: 30px;
+  font-size: 70px;
+  font-weight: bold;
 
   &:hover {
     background: #f6f6f6;
