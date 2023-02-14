@@ -44,6 +44,7 @@ export function Board() {
 
   useEffect(() => {
     checkWinner();
+    checkGameEnd();
   }, [gameData]);
 
   useEffect(() => {
@@ -51,6 +52,12 @@ export function Board() {
       alert("Jogo teve um vencedor");
     }
   }, [winningCombo]);
+
+  const checkGameEnd = () => {
+    if (gameData.every((item) => item !== 0)) {
+      alert("IH, deu velha");
+    }
+  };
 
   const checkWinner = () => {
     console.log("Winner");
