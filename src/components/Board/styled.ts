@@ -25,4 +25,39 @@ export const Span = styled.span`
     background: #f6f6f6;
     cursor: pointer;
   }
+
+  &::after {
+    content: "";
+    display: none;
+    width: 180%;
+    height: 10px;
+    background: black;
+    position: absolute;
+  }
+
+  &.horizontal {
+    &::after {
+      display: block;
+    }
+  }
+  &.vertical {
+    &::after {
+      display: block;
+      rotate: 90deg;
+    }
+  }
+
+  &.diagonal-1 {
+    &::after {
+      display: block;
+      rotate: 45deg;
+    }
+  }
+
+  &.diagonal-2 {
+    &::after {
+      display: block;
+      rotate: 135deg;
+    }
+  }
 `;

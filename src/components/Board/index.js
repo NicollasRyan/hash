@@ -3,18 +3,18 @@ import { BoxBorard, Span } from "./styled";
 
 const winningCombinations = [
   // horizontais
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
+  { indexes: [0, 1, 2], orientation: "horizontal" },
+  { indexes: [3, 4, 5], orientation: "horizontal" },
+  { indexes: [6, 7, 8], orientation: "horizontal" },
 
   // verticals
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
+  { indexes: [0, 3, 6], orientation: "vertical" },
+  { indexes: [1, 4, 7], orientation: "vertical" },
+  { indexes: [2, 5, 8], orientation: "vertical" },
 
   //diagonals
-  [0, 4, 8],
-  [2, 4, 6],
+  { indexes: [0, 4, 8], orientation: "diagonal-1" },
+  { indexes: [2, 4, 6], orientation: "diagonal-2" },
 ];
 
 export function Board() {
@@ -49,7 +49,7 @@ export function Board() {
 
   useEffect(() => {
     if (winningCombo) {
-      alert("Jogo teve um vencedor");
+      // alert("Jogo teve um vencedor");
     }
   }, [winningCombo]);
 
@@ -64,25 +64,26 @@ export function Board() {
 
     let winner = null;
 
-    for (let values of winningCombinations) {
+    for (let combination of winningCombinations) {
+      const { indexes } = combination;
       if (
-        gameData[values[0]] === 1 &&
-        gameData[values[1]] === 1 &&
-        gameData[values[2]] === 1
+        gameData[indexes[0]] === 1 &&
+        gameData[indexes[1]] === 1 &&
+        gameData[indexes[2]] === 1
       ) {
         winner = "player 1";
       }
 
       if (
-        gameData[values[0]] === 2 &&
-        gameData[values[1]] === 2 &&
-        gameData[values[2]] === 2
+        gameData[indexes[0]] === 2 &&
+        gameData[indexes[1]] === 2 &&
+        gameData[indexes[2]] === 2
       ) {
         winner = "player 2";
       }
 
       if (winner) {
-        setWinningCombo(values);
+        setWinningCombo(combination);
         break;
       }
     }
@@ -98,6 +99,11 @@ export function Board() {
             handleClick(index);
           }}
           key={index}
+          className={
+            winningCombo?.indexes.includes(index)
+              ? winningCombo.orientation
+              : undefined
+          }
         >
           {value === 1 && "x"}
           {value === 2 && "o"}
