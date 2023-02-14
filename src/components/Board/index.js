@@ -20,11 +20,16 @@ const winningCombinations = [
 export function Board() {
   const [gameData, setGameData] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [turn, setTurn] = useState(1);
+  const [winningCombo, setWinningCombo] = useState(null);
 
-  const handleClick = (clickIndex: number) => {
+  const handleClick = (clickIndex) => {
     console.log(clickIndex);
 
     if (gameData[clickIndex] !== 0) {
+      return;
+    }
+
+    if (winningCombo) {
       return;
     }
 
@@ -40,6 +45,12 @@ export function Board() {
   useEffect(() => {
     checkWinner();
   }, [gameData]);
+
+  useEffect(() => {
+    if (winningCombo) {
+      alert("Jogo teve um vencedor");
+    }
+  }, [winningCombo]);
 
   const checkWinner = () => {
     console.log("Winner");
@@ -61,6 +72,11 @@ export function Board() {
         gameData[values[2]] === 2
       ) {
         winner = "player 2";
+      }
+
+      if (winner) {
+        setWinningCombo(values);
+        break;
       }
     }
 
